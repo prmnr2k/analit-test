@@ -1,0 +1,7 @@
+D:\Вакансии\АналитФормация\AnalitTest\BL\bin\Debug\BL.dll
+D:\Вакансии\АналитФормация\AnalitTest\BL\bin\Debug\BL.pdb
+D:\Вакансии\АналитФормация\AnalitTest\BL\obj\Debug\BL.csprojResolveAssemblyReference.cache
+D:\Вакансии\АналитФормация\AnalitTest\BL\obj\Debug\BL.dll
+D:\Вакансии\АналитФормация\AnalitTest\BL\obj\Debug\BL.pdb
+D:\Вакансии\АналитФормация\AnalitTest\BL\bin\Debug\MySql.Data.dll
+D:\Вакансии\АналитФормация\AnalitTest\BL\bin\Debug\MySql.Data.Entity.EF5.dll

@@ -1,0 +1,88 @@
+﻿<Window x:Class="Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="700">
+    <Window.Resources>
+        <CollectionViewSource x:Key="ProductList" Source="{Binding ProductList}" />
+        <CollectionViewSource x:Key="CurrentCheckPosition" Source="{Binding CurrentPosition}" />
+    </Window.Resources>
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="95"></RowDefinition>
+            <RowDefinition Height="95"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="1" Margin="10,10,10,10" ItemsSource="{Binding CheckList}" AutoGenerateColumns="False" SelectedItem="{Binding CurrentPosition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="True">
+            <DataGrid.Columns>
+                <DataGridComboBoxColumn Header="Наименование"  Width="*" ItemsSource="{Binding Source={StaticResource ProductList}}" SelectedItemBinding="{Binding Path=Product,UpdateSourceTrigger=PropertyChanged}">
+                </DataGridComboBoxColumn>
+                <DataGridTextColumn Header="Количетсво" Width="0.15*" Binding="{Binding Count,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False">
+                    
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Сумма" Width="0.15*" Binding="{Binding Price}" IsReadOnly="True">
+                    
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Margin="10,10,10,10" Grid.Row="2" Background="#316ac5" TextBlock.Foreground="White" TextBlock.FontWeight="DemiBold">
+            <StackPanel Orientation="Vertical" DataContext="{Binding CurrentPosition}">
+                <Grid TextBlock.FontSize="24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0">Код: <Run Text="{Binding Product.Id}"></Run></TextBlock>
+                    <TextBlock Grid.Column="1">Цена: <Run Text="{Binding Product.Price}"></Run></TextBlock>
+                    <TextBlock Grid.Column="2">Кол-во: <Run Text="{Binding Count}"></Run></TextBlock>
+                    <TextBlock Grid.Column="3">Сумма: <Run Text="{Binding Price,Mode=OneWay}"></Run></TextBlock>
+                </Grid>
+                <TextBlock FontSize="32" Text="{Binding Product.Name}"></TextBlock>
+            </StackPanel>
+        </Grid>
+        <Rectangle Grid.Row="2" Height="5"/>
+        <Grid Margin="10,10,10,10" Grid.Row="3" Background="#316ac5" TextBlock.Foreground="White">
+            <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="275"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical" TextBlock.FontSize="12">
+                    <TextBlock >Вид документа: <Run FontSize="16" Text="Продажа (открыт)"></Run></TextBlock>
+                    <TextBlock >№ документа: <Run FontSize="16" Text="{Binding Id}"></Run></TextBlock>
+                    <TextBlock >позиций: <Run FontSize="16" Text="{Binding PositionCount,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></Run></TextBlock>
+            </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Vertical" TextBlock.FontSize="28">
+                    <TextBlock  Text="Сумма документа:"></TextBlock>
+                    <TextBlock  Text="{Binding CheckSumm,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="4" TextBlock.FontSize="14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="10,10,10,10">
+                <TextBlock Margin="10,0,10,0">К оплате:</TextBlock>
+                <TextBox Margin="10,0,10,0" HorizontalAlignment="Stretch" Width="220" Text="{Binding Cash,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </StackPanel>
+            <TextBlock Margin="10,10,10,10" Grid.Column="1" >Сдача: <Run FontSize="16" Text="{Binding Change,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"></Run></TextBlock>
+        </Grid>
+        <Grid Grid.Row="5" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Margin="50,0,50,0" Grid.Column="0" Command="{Binding ClearCommand}" Content="Очистить документ"></Button>
+            <Button Margin="50,0,50,0" Grid.Column="1" Command="{Binding CloseCheckCommand}" IsEnabled="{Binding CanCloseCheck}" Content="Закрыть документ"></Button>
+        </Grid>
+    </Grid>
+</Window>
